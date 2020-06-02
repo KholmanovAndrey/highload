@@ -1,0 +1,37 @@
+1. Построить NGINX-балансировку между двумя виртуальными машинами. Доказать, что балансировка происходит.
+
+balancer nginx:
+
+upstream mysite.local {
+  least_conn;
+  server 10.0.2.5:8080 weight=2;
+  server 10.0.2.6:8081;
+}
+
+server {
+  listen 8081;
+  server_name high.local;
+
+  location / {
+    proxy_pass  http://high.local;
+  }
+}
+
+В /etc/hosts добавил 127.0.0.1 high.local
+
+
+2. Реализовать альтернативное хранение сессий в Memcached.
+
+php.ini:
+
+session.save_handler = memcached
+session.save_path = "127.0.0.1:11211"
+
+3. Настроить NGINX для работы с символьной ссылкой.
+
+есть /etc/www/high.local
+создал /etc/www/symbol.high.local
+в /etc/nginx/sites-available/high.local изменил
+root /var/www/symbol.high.local
+сделал символическую ссылку:
+sudo ln -s high.local symbol.high.local
