@@ -1,0 +1,8 @@
+1. Установить RabbitMQ.
+
+sudo apt install rabbitmq-server
+sudo rabbitmq-plugins enable rabbitmq_management
+sudo service rabbitmq-server restart
+
+2. Создать несколько очередей.
+3. Реализовать цепочку «Заказ еды — оплата — доставка — отзыв клиента». Сколько понадобится очередей?
